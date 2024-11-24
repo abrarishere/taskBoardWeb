@@ -1,0 +1,15 @@
+dist/
+*/dist
+node_modules
+*/node_modules
+.env
+*/.env
+*.log
+*/.log
+*.pid
+*/.pid
+*.lock
+*/.lock
+*.sqlite
+*/.sqlite
+# we can create react app using npx create-react-app my-app
