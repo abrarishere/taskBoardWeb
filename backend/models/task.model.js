@@ -7,16 +7,13 @@ const taskSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   icon: {
     type: String,
-    required: true,
-    enum: ["🧑‍💻", "💬", "☕", "🏋️‍♂️", "⏰", "📚"]
+    enum: ["🧑‍💻", "💬", "☕", "🏋️‍♂️", "⏰", "📚"],
   },
   status: {
     type: String,
-    required: true,
     //actually these are completed, in-progress, and would not do just for the sake of simplicity i have used these
     enum: ["wont", "in-progress", "done"],
   },

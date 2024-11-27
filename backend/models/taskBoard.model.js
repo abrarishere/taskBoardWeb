@@ -4,6 +4,7 @@ const taskBoardSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    default: "My Task Board",
   },
   tasks: [
     {

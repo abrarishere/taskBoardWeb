@@ -2,6 +2,7 @@ const errorLogger = require("../utils/errorLogger"); // It is used to log the er
 const notFoundSolver = require("../utils/notFoundSolver"); // It is used to send a 404 response if the data is not found
 const taskBoardModel = require("../models/taskBoard.model");
 const taskModel = require("../models/task.model");
+const mongoose = require("mongoose");
 
 // Get all task boards from the database and send them as a response
 exports.getAllTaskBoards = async (req, res) => {
@@ -32,6 +33,9 @@ exports.createTaskBoard = async (req, res) => {
       title: req.body.title,
     });
     await taskBoard.save();
+    // save cookie of the task board id
+    const taskBoardCookie = taskBoard._id.toString();
+    res.cookie("taskBoardId", taskBoardCookie);
     res.send(taskBoard);
   } catch (error) {
     errorLogger(error, req, res);
@@ -56,7 +60,7 @@ exports.updateTaskBoard = async (req, res) => {
 exports.deleteTaskBoard = async (req, res) => {
   try {
     const taskBoard = await taskBoardModel.findById(req.params.id);
-    
+
     // delete the task board
     notFoundSolver(req, res, taskBoard);
     // delete all tasks associated with the task board
@@ -75,6 +79,27 @@ exports.getTasksByTaskBoardId = async (req, res) => {
       .populate("tasks");
     notFoundSolver(req, res, taskBoard);
     res.send(taskBoard.tasks);
+  } catch (error) {
+    errorLogger(error, req, res);
+  }
+};
+
+exports.getUserTaskBoard = async (req, res) => {
+  try {
+    const { taskBoardId } = req.cookies;
+
+    // Validate taskBoardId
+    if (!taskBoardId || !mongoose.Types.ObjectId.isValid(taskBoardId)) {
+      return res
+        .status(400)
+        .send({ error: "Invalid or missing taskBoardId cookie" });
+    }
+    
+    const taskBoardCookie = new mongoose.Types.ObjectId(taskBoardId);
+    const taskBoard = await taskBoardModel.findById(taskBoardCookie);
+
+    notFoundSolver(req, res, taskBoard);
+    res.send(taskBoard);
   } catch (error) {
     errorLogger(error, req, res);
   }
