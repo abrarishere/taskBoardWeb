@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 5000;
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // Set this to your frontend URL
+  credentials: true,
+}));
 app.use(cookieParser());
 
 app.use("/api/task-board", taskBoardRoutes);
@@ -22,3 +25,4 @@ app.listen(PORT, () => {
   ConnectToDb();
   console.log(`Server is running on port ${PORT}`);
 });
+  

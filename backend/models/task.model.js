@@ -15,7 +15,7 @@ const taskSchema = new mongoose.Schema({
   status: {
     type: String,
     //actually these are completed, in-progress, and would not do just for the sake of simplicity i have used these
-    enum: ["wont", "in-progress", "done"],
+    enum: ["wont", "in-progress", "done", "other"],
   },
   taskBoard: {
     type: mongoose.Schema.Types.ObjectId,
