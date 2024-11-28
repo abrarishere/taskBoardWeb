@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true;
 const MainTaskBoard = ({ defaultTaskBoardId, isMain }) => {
   const [tasks, setTasks] = useState([]);
   const [taskBoardTitle, setTaskBoardTitle] = useState("");
+  const [taskBoardDescription, setTaskBoardDescription] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [taskBoard, setTaskBoard] = useState({});
 
@@ -18,7 +19,7 @@ const MainTaskBoard = ({ defaultTaskBoardId, isMain }) => {
   // Determine task board ID
   const taskBoardId = isMain
     ? defaultTaskBoardId
-    : window.location.pathname.split("/")[1] || defaultTaskBoardId;
+    : window.location.pathname.split("/board/")[1] || defaultTaskBoardId;
 
   // Fetch user tasks
   const getUserTasks = async () => {
@@ -60,16 +61,19 @@ const MainTaskBoard = ({ defaultTaskBoardId, isMain }) => {
     }
   };
 
-  // Rename the task board
+  // Rename the task board title and description
   const renameTaskBoard = async () => {
     const newTitle = prompt("Enter new title for task board:", taskBoardTitle);
-    if (newTitle) {
+    const newDescription = prompt("Enter new description for task board:", taskBoardDescription);
+    if (newTitle || newDescription) {
       try {
         const res = await axios.put(`${apiUrl}/task-board/${taskBoardId}`, {
-          title: newTitle,
+          title: newTitle || taskBoardTitle,
+          description: newDescription || taskBoardDescription,
         });
         if (res.data) {
           setTaskBoardTitle(res.data.title);
+          setTaskBoardDescription(res.data.description);
         }
       } catch (error) {
         console.error("Error renaming task board:", error);
@@ -83,6 +87,7 @@ const MainTaskBoard = ({ defaultTaskBoardId, isMain }) => {
       const res = await axios.get(`${apiUrl}/task-board/${taskBoardId}`);
       if (res.data) {
         setTaskBoardTitle(res.data.title);
+        setTaskBoardDescription(res.data.description);
         setTaskBoard(res.data);
       }
     } catch (error) {
@@ -114,7 +119,7 @@ const MainTaskBoard = ({ defaultTaskBoardId, isMain }) => {
           />
         </div>
         <p className="font-regular text-[1rem] pl-12">
-          Tasks to keep organized
+          {taskBoardDescription}
         </p>
       </div>
       {/* Render tasks component */}

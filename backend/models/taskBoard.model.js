@@ -6,6 +6,10 @@ const taskBoardSchema = new mongoose.Schema({
     required: true,
     default: "My Task Board",
   },
+  description: {
+    type: String,
+    default: "Tasks to keep organised",
+  },
   tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,

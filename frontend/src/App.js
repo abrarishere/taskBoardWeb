@@ -9,7 +9,7 @@ const App = () => {
         element={<MainTaskBoard defaultTaskBoardId={defaultTaskBoardId} isMain={true}  />}
       />
       <Route
-        path="/:id"
+        path="/board/:id"
         element={<MainTaskBoard defaultTaskBoardId={defaultTaskBoardId} isMain={false}  />}
       />
     </Routes>
