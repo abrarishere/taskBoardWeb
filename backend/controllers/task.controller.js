@@ -9,7 +9,7 @@ exports.getAllTasks = async (req, res) => {
     notFoundSolver(req, res, tasks);
     res.status(200).json(tasks);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };
 
@@ -20,7 +20,7 @@ exports.getTaskById = async (req, res) => {
     notFoundSolver(req, res, task);
     res.status(200).json(task);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };
 
@@ -41,7 +41,7 @@ exports.createTask = async (req, res) => {
     await taskBoard.save();
     res.status(201).json(task);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };
 
@@ -58,7 +58,7 @@ exports.updateTask = async (req, res) => {
     await task.save();
     res.status(200).json(task);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };
 
@@ -76,7 +76,7 @@ exports.deleteTask = async (req, res) => {
     await task.deleteOne();
     res.status(200).json(task);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };
 
@@ -89,6 +89,6 @@ exports.getTaskBoardByTaskId = async (req, res) => {
     notFoundSolver(req, res, taskBoard);
     res.status(200).json(taskBoard);
   } catch (error) {
-    errorLogger(error);
+    errorLogger(error, req, res);
   }
 };

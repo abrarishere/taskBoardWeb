@@ -12,4 +12,4 @@ node_modules
 */.lock
 *.sqlite
 */.sqlite
-# we can create react app using npx create-react-app my-app
+.vscode

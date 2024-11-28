@@ -1,7 +1,8 @@
 const notFoundSolver = (req, res, data) => {
   if (!data) {
+    const route = req.route?.path || "resource";
     return res.status(404).send({
-      message: `No ${req.route.path} found in the database.`,
+      message: `The requested ${route} was not found.`,
     });
   }
   return data;
