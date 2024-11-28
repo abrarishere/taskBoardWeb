@@ -30,8 +30,8 @@ This is a Task Board application built with a React frontend and an Express back
 1. **Clone the repository**:
 
     ```sh
-    git clone https://github.com/your-username/task-board.git
-    cd task-board
+    git clone https://github.com/abrarishere/taskBoardWeb.git
+    cd taskBoardWeb
     ```
 
 2. **Install dependencies**:
@@ -66,7 +66,6 @@ This is a Task Board application built with a React frontend and an Express back
 1. **Start the backend server**:
 
     ```sh
-    cd backend
     npm start
     ```
 
